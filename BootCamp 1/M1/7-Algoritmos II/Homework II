@@ -1,0 +1,76 @@
+'use strict'
+// No cambies los nombres de las funciones.
+
+function quickSort(array) {
+  // Implementar el método conocido como quickSort para ordenar de menor a mayor
+  // el array recibido como parámetro
+  // Devolver el array ordenado resultante
+  // Tu código:
+  if (array.length <= 1) {
+    return array;
+  } else {
+    const pivot = array[0];
+    const left = [];
+    const right = [];
+    for (let i = 1; i < array.length; i++) {
+      if (array[i] < pivot) {
+        left.push(array[i]);
+      } else {
+        right.push(array[i]);
+      }
+    }
+    return [...quickSort(left), pivot, ...quickSort(right)];
+  }
+}
+
+console.log(quickSort([5, 1, 4, 2, 8]));
+console.log(quickSort([10, 10, 16, 12]));
+console.log(quickSort([10, -2, -7, 4]));
+
+//La función quickSort recibe un array como parámetro y lo divide en dos subarrays left y right 
+//a partir de un elemento pivote pivot, que en este caso se selecciona como el primer elemento del 
+//array original. Luego, se aplica la misma función quickSort recursivamente a ambos subarrays y se
+//concatenan los resultados junto con el pivote en el orden correcto.
+
+function mergeSort(array) {
+  // Implementar el método conocido como mergeSort para ordenar de menor a mayor
+  // el array recibido como parámetro
+  // Devolver el array ordenado resultante
+  // Tu código:
+  if (array.length <= 1) {
+    return array;
+  }
+  const middle = Math.floor(array.length / 2);
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
+  return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+  let result = [];
+  let i = 0;
+  let j = 0;
+  while (i < left.length && j < right.length) {
+    if (left[i] < right[j]) {
+      result.push(left[i]);
+      i++;
+    } else {
+      result.push(right[j]);
+      j++;
+    }
+  }
+  return result.concat(left.slice(i)).concat(right.slice(j));
+  //okey probemos ahora
+}
+
+console.log(mergeSort([5, 1, 4, 2, 8]));
+console.log(mergeSort([10, 10, 16, 12]));
+console.log(mergeSort([10, -2, -7, 4]));
+
+//recibe un array como parámetro y lo divide en dos subarrays left y right a partir de su punto medio (middle).
+// Luego, seaplica la misma función mergeSort recursivamente a ambos subarrays y se combina el resultado llamando
+// a la función merge que se encarga de unir los subarrays en orden ascendente.
+//La función merge recibe dos subarrays ordenados (left y right) y los combina en un solo array result ordenado.
+//El proceso consiste en comparar el primer elemento de cada subarray y agregar el menor al array result, avanzando 
+//el índice correspondiente en el subarray correspondiente. Este proceso se repite hasta que se hayan agregado todos 
+//los elementos de ambos subarrays.

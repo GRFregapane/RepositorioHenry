@@ -1,0 +1,122 @@
+'use strict'
+// No cambies los nombres de las funciones.
+
+function factorear(num) {
+  // Factorear el número recibido como parámetro y devolver en un array
+  // los factores por los cuales se va dividiendo a dicho número (De menor a mayor)
+  // Ej: factorear(180) --> [1, 2, 2, 3, 3, 5] Ya que 1x2x2x3x3x5 = 180 y son todos números primos
+  // Tu código:
+  var factores = [1];
+  for (var i = 2; i <= num; i++) {
+    while (num % i === 0) {
+      factores.push(i);
+      num /= i;
+    }
+  }
+  return factores;
+}
+console.log(factorear(32));
+console.log(factorear(180));
+console.log(factorear(33));
+console.log(factorear(1));
+
+//Esta función utiliza un bucle for que va desde 2 hasta el número. Dentro del bucle, utilizamos un bucle while 
+//que se ejecuta mientras el número sea divisible por el factor actual (i). En cada iteración, agregamos el 
+//factor al array de factores y dividimos el número por el factor. Cuando el número ya no es divisible por el factor
+// actual, pasamos al siguiente factor.
+//Al final de la función, agregamos el factor 1 al array de factores, ya que todo número es divisible por 1.
+
+
+function bubbleSort(array) { 
+  // Implementar el método conocido como bubbleSort para ordenar de menor a mayor
+  // el array recibido como parámetro
+  // Devolver el array ordenado resultante
+  // Tu código:
+  let len = array.length;
+  for (let i = 0; i < len - 1; i++) {
+    for (let j = 0; j < len - i - 1; j++) {
+      if (array[j] > array[j + 1]) {
+        var temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+  }
+  return array;
+}
+console.log(bubbleSort([3, 2, 1, 4, 5]));
+
+//Esta función utiliza dos bucles for anidados. El bucle exterior se repite len-1 veces, ya que
+// el último elemento quedará automáticamente en su posición correcta después de las primeras 
+//len-1 iteraciones. El bucle interior se repite len-i-1 veces, ya que después de cada iteración
+// del bucle exterior, el elemento más grande se mueve a la posición correcta en el extremo derecho del array.
+//Dentro del bucle interior, comparamos el elemento actual con elsiguiente elemento. Si el elemento 
+//actual es mayor que el siguiente, los intercambiamos utilizando una variable temporal (temp) para almacenar 
+//el valor del elemento actual antes de sobrescribirlo.
+
+/*function bubbleSort(array) {
+  return array.sort(function(a, b) {
+    return a - b;
+  });
+}
+Esta función simplemente llama al método sort() del array y proporciona una función de comparación que resta el segundo 
+elemento del primero (b - a) para ordenar los elementos de menor a mayor.
+Por ejemplo, si llamamos a la función con bubbleSort([3, 2, 1, 4, 5]), deberíamos obtener como resultado [1, 2, 3, 4, 5].*/
+
+
+function insertionSort(array) {
+  // Implementar el método conocido como insertionSort para ordenar de menor a mayor
+  // el array recibido como parámetro utilizando arreglos
+  // Devolver el array ordenado resultante
+  // Tu código:
+  for (let i = 1; i < array.length; i++) {
+    var current = array[i];
+    var j = i - 1;
+    while (j >= 0 && array[j] > current) {
+      array[j + 1] = array[j];
+      j--;
+    }
+    array[j + 1] = current;
+  }
+  return array;
+}
+console.log(insertionSort([3, 2, 1, 4, 5]));
+
+//Esta función utiliza un bucle for que recorre el array desde el segundo elemento (índice 1) hasta
+// el último elemento (índice array.length-1). Para cada elemento en este rango, lo almacenamos en 
+//una variable llamada current y lo comparamos con los elementos del subarray ordenado desde derecha 
+//a izquierda en un bucle while.
+//Dentro del bucle while, desplazamos los elementos del subarray ordenado haciala derecha mientras sean
+// mayores que el elemento actual, y decrementamos el índice j. Cuando encontramos la posición correcta
+// para el elemento actual, lo insertamos en el subarray ordenado en la posición j+1.
+
+
+function selectionSort(array) {
+  // Implementar el método conocido como selectionSort para ordenar de menor a mayor
+  // el array recibido como parámetro utilizando dos arreglos
+  // Devolver el array ordenado resultante
+  // Tu código:
+  var sorted = [];
+  while (array.length > 0) {
+    var indexMin = 0;
+    for (var i = 1; i < array.length; i++) {
+      if (array[i] < array[indexMin]) {
+        indexMin = i;
+      }
+    }
+    sorted.push(array[indexMin]);
+    array.splice(indexMin, 1);
+  }
+  return sorted;
+}
+console.log(selectionSort([3, 2, 1, 4, 5]));
+
+//Esta función utiliza un bucle while que se ejecuta mientras el array original tenga elementos.
+// En cada iteración, buscamos el índice del elemento más pequeño en el array original y lo 
+//agregamos al array ordenado (sorted) utilizando el método push(). Además, eliminamos el
+// elemento más pequeño del array original utilizando el método splice().
+//Para buscar el índice del elemento más pequeño, utilizamos un bucle for que recorre el array
+// desde el segundo elemento (índice 1) hasta el último elemento (índice array.length-1).
+// Para cada elemento en este rango, comparamos su valor con el valor del elemento actualmente
+// seleccionado como el más pequeño (que inicialmente es el primer elemento del array), y si 
+//encontramos un elemento con un valor menor, actualizamos el índice del elemento más pequeño.
